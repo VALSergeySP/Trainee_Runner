@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class LevelGenerationManager : MonoBehaviour
 {
+    public delegate void ResetLevelDelegate();
+    public event ResetLevelDelegate ResetLevelEvent;
+
+
     [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10);
     [SerializeField] GameObject _levelPartPrefab;
     List<Transform> _levelParts = new();
 
     [SerializeField] float _maxMovementSpeed = 10f;
     [SerializeField] float _startSpeed = 3f;
+    [SerializeField] float _timeToMaxSpeedInSec = 120f;
     float _currentSpeed = 0f;
+    public float CurrentSpeed=> _currentSpeed;
+    float _speedChangeStep;
     [SerializeField] int _maxLevelParts = 5;
 
     void Start()
     {
         ResetLevel();
-        InitializeLevel();
     }
 
     void Update()
@@ -30,9 +36,9 @@ public class LevelGenerationManager : MonoBehaviour
 
         if (_levelParts.Count > 0)
         {
-            if (_levelParts[0].position.z < -PART_OFFSET.z) // TO DO: Заменить на пул позже
+            if (_levelParts[0].position.z < -PART_OFFSET.z)
             {
-                Destroy(_levelParts[0].gameObject);
+                Singleton.Instance.PoolManagerInstance.Despawn(_levelParts[0].gameObject);
                 _levelParts.RemoveAt(0);
 
                 CreateNewLevelPart();
@@ -42,10 +48,14 @@ public class LevelGenerationManager : MonoBehaviour
 
     public void ResetLevel()
     {
+        _speedChangeStep = (_maxMovementSpeed - _startSpeed) / _timeToMaxSpeedInSec;
         _currentSpeed = 0f;
-        while(_levelParts.Count > 0) // TO DO: Заменить на пул позже
+
+        StopAllCoroutines();
+
+        while(_levelParts.Count > 0)
         {
-            Destroy(_levelParts[0].gameObject);
+            Singleton.Instance.PoolManagerInstance.Despawn(_levelParts[0].gameObject);
             _levelParts.RemoveAt(0);
         }
 
@@ -53,11 +63,27 @@ public class LevelGenerationManager : MonoBehaviour
         {
             CreateNewLevelPart();
         }
+
+        ResetLevelEvent?.Invoke();
     }
 
-    public void InitializeLevel()
+    public void StartLevel()
     {
         _currentSpeed = _startSpeed;
+
+        StartCoroutine(SpeedChangeRoutine());
+    }
+
+    IEnumerator SpeedChangeRoutine()
+    {
+        while(_currentSpeed < _maxMovementSpeed)
+        {
+            yield return new WaitForSeconds(1f);
+
+            _currentSpeed += _speedChangeStep;
+        }
+
+        _currentSpeed = _maxMovementSpeed;
     }
 
     private void CreateNewLevelPart()
@@ -65,7 +91,7 @@ public class LevelGenerationManager : MonoBehaviour
         Vector3 position = Vector3.zero;
         if(_levelParts.Count > 0) { position = _levelParts[^1].position + PART_OFFSET; }
 
-        Transform newPart = Instantiate(_levelPartPrefab, position, Quaternion.identity).transform;
+        Transform newPart = Singleton.Instance.PoolManagerInstance.Spawn(_levelPartPrefab, position, Quaternion.identity).transform;
         newPart.SetParent(transform);
         _levelParts.Add(newPart);
     }
