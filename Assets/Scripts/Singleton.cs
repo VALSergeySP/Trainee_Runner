@@ -17,6 +17,9 @@ public class Singleton : MonoBehaviour
     [SerializeField] private SwipeManager _swipeManager;
     public SwipeManager SwipeManagerInstance => _swipeManager;
 
+    [SerializeField] private ScorePointsManager _scorePointsManager;
+    public ScorePointsManager ScorePointsManagerInstance => _scorePointsManager;
+
     void Awake()
     {
         if (Instance == null)
