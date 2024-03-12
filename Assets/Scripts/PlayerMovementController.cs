@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    Vector3 _playerStartPosition;
+    Quaternion _playerStartRotation;
+
     float _laneOffset;
     [SerializeField] float _laneChangeSpeed = 15f;
     [SerializeField] float _jumpForce = 15f;
@@ -24,15 +27,44 @@ public class PlayerMovementController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+
+        _playerStartPosition = transform.position;
+        _playerStartRotation = transform.rotation;
+
         Singleton.Instance.SwipeManagerInstance.Movement += MovePlayer;
+        Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetPlayer;
+        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += OnPlayerDeath;
         _laneOffset = Singleton.Instance.ObstaclesGenerationManagerInstance.LaneOffset;
+    }
+
+    void OnPlayerDeath()
+    {
+        if(_isMoving)
+        {
+            StopCoroutine(_movementRoutine);
+        }
+    }
+
+    void ResetPlayer()
+    {
+        _animator.ResetTrigger("StopSliding");
+        _animator.ResetTrigger("StartSliding");
+
+        _rb.velocity = Vector3.zero;
+        _isMoving = false;
+        _isJumping = false;
+        _isSliding = false;
+        _pointStart = 0f;
+        _pointFinish = 0f;
+
+        transform.position = _playerStartPosition;
+        transform.rotation = _playerStartRotation;
     }
 
     void MovePlayer(bool[] swipeDirections) 
     {
         if (swipeDirections[(int)SwipeManager.Direction.Left] && _pointFinish > -_laneOffset)
         {
-
             MoveHorizontal(-_laneChangeSpeed);
         }
         if (swipeDirections[(int)SwipeManager.Direction.Right] && _pointFinish < _laneOffset)

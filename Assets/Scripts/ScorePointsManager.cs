@@ -15,6 +15,7 @@ public class ScorePointsManager : MonoBehaviour
     {
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetScorePointsManager;
+        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += StopScorePointsManager;
     }
 
     void StartScorePointsManager()
@@ -38,6 +39,12 @@ public class ScorePointsManager : MonoBehaviour
 
     void ResetScorePointsManager()
     {
+        _currentScore = 0;
+        _scoreTextField.text = _currentScore.ToString();
+    }
+
+    void StopScorePointsManager()
+    {
         StopAllCoroutines();
         Debug.Log($"Your score: {_currentScore}");
         _scoreTextField.text = _currentScore.ToString();
@@ -47,5 +54,6 @@ public class ScorePointsManager : MonoBehaviour
     {
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent -= StartScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent -= ResetScorePointsManager;
+        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent -= StopScorePointsManager;
     }
 }

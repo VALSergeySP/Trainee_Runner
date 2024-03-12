@@ -25,6 +25,8 @@ public class LevelGenerationManager : MonoBehaviour
     void Start()
     {
         ResetLevel();
+
+        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += StopLevel;
     }
 
     void Update()
@@ -46,6 +48,13 @@ public class LevelGenerationManager : MonoBehaviour
                 CreateNewLevelPart();
             }
         }
+    }
+
+    public void StopLevel()
+    {
+        _currentSpeed = 0f;
+
+        StopAllCoroutines();
     }
 
     public void ResetLevel()

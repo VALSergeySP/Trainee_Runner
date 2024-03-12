@@ -70,7 +70,7 @@ public class SwipeManager : MonoBehaviour
     {
         if (_swipeData[0] || _swipeData[1] || _swipeData[2] || _swipeData[3])
         {
-            Debug.Log($"{_swipeData[0]} || {_swipeData[1]} || {_swipeData[2]} || {_swipeData[3]}");
+            //Debug.Log($"{_swipeData[0]} || {_swipeData[1]} || {_swipeData[2]} || {_swipeData[3]}");
             Movement?.Invoke(_swipeData);
         }
         ResetArray();
