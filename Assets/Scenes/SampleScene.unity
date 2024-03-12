@@ -598,6 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717d3b2e546674a4084a6fc8726741fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onRespawnInvincTime: 1
 --- !u!1 &381791282
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +813,7 @@ GameObject:
   - component: {fileID: 521927917}
   - component: {fileID: 521927916}
   - component: {fileID: 521927915}
+  - component: {fileID: 521927919}
   m_Layer: 5
   m_Name: DeathMenuCanvas
   m_TagString: Untagged
@@ -902,6 +904,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &521927919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521927914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d7e0f64dbbea148a8a8a24eb45d75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnButton: {fileID: 783213104}
 --- !u!1 &637545176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,7 +1141,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 783213105}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 521927919}
+        m_TargetAssemblyTypeName: UIDeathMenuController, Assembly-CSharp
+        m_MethodName: OnRespawnButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &783213105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,6 +2092,7 @@ MonoBehaviour:
   _scorePointsManager: {fileID: 96904905}
   _uiManager: {fileID: 637545177}
   _playerCollisionController: {fileID: 369699562}
+  _respawnAdsRewarded: {fileID: 2078062229}
 --- !u!4 &1516208531
 Transform:
   m_ObjectHideFlags: 0
@@ -3162,6 +3190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078062228}
   - component: {fileID: 2078062227}
+  - component: {fileID: 2078062229}
   m_Layer: 0
   m_Name: AdsManager
   m_TagString: Untagged
@@ -3181,8 +3210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b72f3fd4ccc23694ea06d3bc2a9b9f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  androidGameId: 
-  iosGameId: 
+  androidGameId: 5573795
+  iosGameId: 5573794
   isTestingMode: 1
 --- !u!4 &2078062228
 Transform:
@@ -3199,6 +3228,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2078062229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078062226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9516f334282a0b41bbd672f20d94a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidAdUnitId: Rewarded_Android
+  iosAdUnitId: Rewarded_iOS
 --- !u!1 &2142027134
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,9 +3325,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1984644574}
-        m_TargetAssemblyTypeName: LevelGenerationManager, Assembly-CSharp
-        m_MethodName: ResetLevel
+      - m_Target: {fileID: 521927919}
+        m_TargetAssemblyTypeName: UIDeathMenuController, Assembly-CSharp
+        m_MethodName: OnMainMenuButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
