@@ -40,7 +40,5 @@ public class Singleton : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        DontDestroyOnLoad(gameObject);
     }
 }
