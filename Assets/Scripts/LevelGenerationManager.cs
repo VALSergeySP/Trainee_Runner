@@ -7,6 +7,8 @@ public class LevelGenerationManager : MonoBehaviour
     public delegate void ResetLevelDelegate();
     public event ResetLevelDelegate ResetLevelEvent;
 
+    public delegate void StartLevelDelegate();
+    public event StartLevelDelegate StartLevelEvent;
 
     [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10);
     [SerializeField] GameObject _levelPartPrefab;
@@ -70,7 +72,7 @@ public class LevelGenerationManager : MonoBehaviour
     public void StartLevel()
     {
         _currentSpeed = _startSpeed;
-
+        StartLevelEvent?.Invoke();
         StartCoroutine(SpeedChangeRoutine());
     }
 

@@ -16,6 +16,9 @@ public class Singleton : MonoBehaviour
     [SerializeField] private ObstaclesGenerationManager _obstaclesGenerationManager;
     public ObstaclesGenerationManager ObstaclesGenerationManagerInstance => _obstaclesGenerationManager;
 
+    [SerializeField] private SwipeManager _swipeManager;
+    public SwipeManager SwipeManagerInstance => _swipeManager;
+
     void Awake()
     {
         if (Instance == null)
