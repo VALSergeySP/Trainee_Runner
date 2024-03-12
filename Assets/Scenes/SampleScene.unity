@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 369699560}
   - component: {fileID: 369699555}
   - component: {fileID: 369699559}
+  - component: {fileID: 369699561}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -300,7 +301,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &369699560
@@ -316,6 +317,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _laneChangeSpeed: 15
+  _jumpForce: 7
+  _slidingTime: 1.5
+--- !u!95 &369699561
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369699554}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dfcb9c760e22db348b0b7c638a648837, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &381791282
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,10 +967,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 076f3d69786e22a4cbd1c0ead56626ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemSpacingDistance: 10
+  _itemSpacingDistance: 20
   _linesOnMap: 5
   _mapsToGenerateOnStart: 10
-  _mapStartOffset: 10
+  _mapStartOffset: 20
   ObstaclesTopPrefab: {fileID: 8413285050755335161, guid: ec3edbbb65db06649ae6019f61adcd5d, type: 3}
   ObstaclesLowPrefab: {fileID: 3417596434977357038, guid: 9bc66409ba414d64d8ab34c37ea7f74a, type: 3}
   ObstaclesFullPrefab: {fileID: 384513379225165742, guid: 7ffdff8508f65f847982b28b2eb67066, type: 3}

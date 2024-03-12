@@ -5,33 +5,104 @@ public class PlayerMovementController : MonoBehaviour
 {
     float _laneOffset;
     [SerializeField] float _laneChangeSpeed = 15f;
+    [SerializeField] float _jumpForce = 15f;
+    [SerializeField] float _slidingTime = 1.5f;
+
     Rigidbody _rb;
+    Animator _animator;
 
     float _pointStart;
     float _pointFinish;
 
-    bool _isMoving;
-    Coroutine movementRoutine;
+    bool _isMoving = false;
+    bool _isJumping = false;
+    bool _isSliding = false;
+    Coroutine _movementRoutine;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
         Singleton.Instance.SwipeManagerInstance.Movement += MovePlayer;
         _laneOffset = Singleton.Instance.ObstaclesGenerationManagerInstance.LaneOffset;
     }
 
     void MovePlayer(bool[] swipeDirections) 
     {
-        if (swipeDirections[0] && _pointFinish > -_laneOffset)
+        if (swipeDirections[(int)SwipeManager.Direction.Left] && _pointFinish > -_laneOffset)
         {
 
             MoveHorizontal(-_laneChangeSpeed);
         }
-        if (swipeDirections[1] && _pointFinish < _laneOffset)
+        if (swipeDirections[(int)SwipeManager.Direction.Right] && _pointFinish < _laneOffset)
         {
             MoveHorizontal(_laneChangeSpeed);
         }
+        if (swipeDirections[(int)SwipeManager.Direction.Up] && !_isJumping && !_isSliding)
+        {
+            Jump();
+        }
+        if (swipeDirections[(int)SwipeManager.Direction.Down] && _isJumping)
+        {
+            StopJump();
+        }
+        if (swipeDirections[(int)SwipeManager.Direction.Down] && !_isJumping && !_isSliding)
+        {
+            Slide();
+        }
+        if (swipeDirections[(int)SwipeManager.Direction.Up] && _isSliding)
+        {
+            StopSlide();
+        }
+    }
+
+    void StopSlide()
+    {
+        StopCoroutine(SlidingRoutine());
+        _isSliding = false;
+        _animator.SetTrigger("StopSliding");
+    }
+
+    void Slide()
+    {
+        _isSliding = true;
+        _animator.ResetTrigger("StopSliding");
+
+        StartCoroutine(SlidingRoutine());
+    }
+
+    IEnumerator SlidingRoutine()
+    {
+        _animator.SetTrigger("StartSliding");
+
+        yield return new WaitForSeconds(_slidingTime);
+
+        _isSliding = false;
+        _animator.SetTrigger("StopSliding");
+    }
+
+    void StopJump()
+    {
+        _rb.AddForce(Vector3.down * _jumpForce, ForceMode.Impulse);
+    }
+
+    void Jump()
+    {
+        _isJumping = true;
+        _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+
+        StartCoroutine(StopJumpingRoutine());
+    }
+
+    IEnumerator StopJumpingRoutine()
+    {
+        do
+        {
+            yield return new WaitForFixedUpdate();
+        } while (_rb.velocity.y != 0);
+
+        _isJumping = false;
     }
 
     void MoveHorizontal(float speed)
@@ -41,10 +112,10 @@ public class PlayerMovementController : MonoBehaviour
 
         if(_isMoving)
         {
-            StopCoroutine(movementRoutine);
+            StopCoroutine(_movementRoutine);
             _isMoving = false;
         }
-        movementRoutine = StartCoroutine(MoveRoutine(speed));
+        _movementRoutine = StartCoroutine(MoveRoutine(speed));
     }
 
     IEnumerator MoveRoutine(float speed)
