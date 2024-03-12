@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SwipeManager : MonoBehaviour
@@ -8,12 +6,12 @@ public class SwipeManager : MonoBehaviour
     public event MovementDelegate Movement;
 
     public enum Direction { Left, Right, Up, Down};
-    bool[] swipeData = new bool[4];
+    bool[] _swipeData = new bool[4];
 
-    Vector2 startTouchPosition;
-    Vector2 swipeMovementDelta;
+    Vector2 _startTouchPosition;
+    Vector2 _swipeMovementDelta;
 
-    bool touchMoved;
+    bool _touchMoved;
 
     const float MIN_SWIPE_DIST = 50f;
 
@@ -37,31 +35,31 @@ public class SwipeManager : MonoBehaviour
     {
         if (TouchBegan())
         {
-            startTouchPosition = TouchPosition();
-            touchMoved = true;
+            _startTouchPosition = TouchPosition();
+            _touchMoved = true;
         }
-        else if (TouchEnded() && touchMoved == true)
+        else if (TouchEnded() && _touchMoved == true)
         {
             SendSwipe();
-            touchMoved = false;
+            _touchMoved = false;
         }
 
-        swipeMovementDelta = Vector2.zero;
-        if(touchMoved && GetTouch())
+        _swipeMovementDelta = Vector2.zero;
+        if(_touchMoved && GetTouch())
         {
-            swipeMovementDelta = TouchPosition() - startTouchPosition;
+            _swipeMovementDelta = TouchPosition() - _startTouchPosition;
         }
 
-        if(swipeMovementDelta.sqrMagnitude > MIN_SWIPE_DIST * MIN_SWIPE_DIST)
+        if(_swipeMovementDelta.sqrMagnitude > MIN_SWIPE_DIST * MIN_SWIPE_DIST)
         {
-            if(Mathf.Abs(swipeMovementDelta.x) > Mathf.Abs(swipeMovementDelta.y))
+            if(Mathf.Abs(_swipeMovementDelta.x) > Mathf.Abs(_swipeMovementDelta.y))
             {
-                swipeData[(int)Direction.Left] = swipeMovementDelta.x < 0;
-                swipeData[(int)Direction.Right] = swipeMovementDelta.x > 0;
+                _swipeData[(int)Direction.Left] = _swipeMovementDelta.x < 0;
+                _swipeData[(int)Direction.Right] = _swipeMovementDelta.x > 0;
             } else
             {
-                swipeData[(int)Direction.Down] = swipeMovementDelta.y < 0;
-                swipeData[(int)Direction.Up] = swipeMovementDelta.y > 0;
+                _swipeData[(int)Direction.Down] = _swipeMovementDelta.y < 0;
+                _swipeData[(int)Direction.Up] = _swipeMovementDelta.y > 0;
             }
 
             SendSwipe();
@@ -70,18 +68,18 @@ public class SwipeManager : MonoBehaviour
 
     void SendSwipe()
     {
-        if (swipeData[0] || swipeData[1] || swipeData[2] || swipeData[3])
+        if (_swipeData[0] || _swipeData[1] || _swipeData[2] || _swipeData[3])
         {
-            Debug.Log($"{swipeData[0]} || {swipeData[1]} || {swipeData[2]} || {swipeData[3]}");
-            Movement?.Invoke(swipeData);
+            Debug.Log($"{_swipeData[0]} || {_swipeData[1]} || {_swipeData[2]} || {_swipeData[3]}");
+            Movement?.Invoke(_swipeData);
         }
         ResetArray();
     }
 
     void ResetArray()
     {
-        startTouchPosition = swipeMovementDelta = Vector2.zero;
-        touchMoved = false;
-        for (int i = 0; i< 4; i++) { swipeData[i] = false; }
+        _startTouchPosition = _swipeMovementDelta = Vector2.zero;
+        _touchMoved = false;
+        for (int i = 0; i< 4; i++) { _swipeData[i] = false; }
     }
 }
