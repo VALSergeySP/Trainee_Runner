@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Singleton : MonoBehaviour
@@ -15,6 +13,12 @@ public class Singleton : MonoBehaviour
 
     [SerializeField] private ObstaclesGenerationManager _obstaclesGenerationManager;
     public ObstaclesGenerationManager ObstaclesGenerationManagerInstance => _obstaclesGenerationManager;
+
+    [SerializeField] private SwipeManager _swipeManager;
+    public SwipeManager SwipeManagerInstance => _swipeManager;
+
+    [SerializeField] private ScorePointsManager _scorePointsManager;
+    public ScorePointsManager ScorePointsManagerInstance => _scorePointsManager;
 
     void Awake()
     {
