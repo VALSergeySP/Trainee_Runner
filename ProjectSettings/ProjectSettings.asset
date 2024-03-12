@@ -158,6 +158,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.DefaultCompany.Trainee_Runner
     Standalone: com.DefaultCompany.Trainee-Runner
+    iPhone: com.DefaultCompany.Trainee-Runner
   buildNumber:
     Standalone: 0
     VisionOS: 0
