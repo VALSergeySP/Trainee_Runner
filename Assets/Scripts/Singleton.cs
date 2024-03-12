@@ -20,12 +20,14 @@ public class Singleton : MonoBehaviour
     [SerializeField] private ScorePointsManager _scorePointsManager;
     public ScorePointsManager ScorePointsManagerInstance => _scorePointsManager;
 
-
     [SerializeField] private UIManager _uiManager;
     public UIManager UIManagerInstance => _uiManager;
     
     [SerializeField] private PlayerCollisionController _playerCollisionController;
     public PlayerCollisionController PlayerCollisionControllerInstance => _playerCollisionController;
+
+    [SerializeField] private RespawnAdsRewardedController _respawnAdsRewarded;
+    public RespawnAdsRewardedController RespawnAdsRewardedControllerInstance => _respawnAdsRewarded;
 
     void Awake()
     {

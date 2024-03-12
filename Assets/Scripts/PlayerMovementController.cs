@@ -45,6 +45,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+
     void ResetPlayer()
     {
         _animator.ResetTrigger("StopSliding");

@@ -23,7 +23,13 @@ public class SwipeManager : MonoBehaviour
     private void Start()
     {
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartSwipeManager;
+        Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += ContinueSwipeManager;
         enabled = false;
+    }
+
+    void ContinueSwipeManager()
+    {
+        enabled = true;
     }
 
     void StartSwipeManager()

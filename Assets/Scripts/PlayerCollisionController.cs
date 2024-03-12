@@ -7,12 +7,31 @@ public class PlayerCollisionController : MonoBehaviour
     public delegate void OnPlayerDeath();
     public event OnPlayerDeath OnPlayerDeathEvent;
 
+    [SerializeField] float _onRespawnInvincTime = 1f;
+    bool _canBeDamaged = true;
+
+    private void Start()
+    {
+        Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += ContinuePlayerCollisions;
+    }
+
+    void ContinuePlayerCollisions()
+    {
+        Invoke(nameof(ResetInvinc), _onRespawnInvincTime);
+    }
+
+    void ResetInvinc()
+    {
+        _canBeDamaged = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Obstacle"))
+        if(other.CompareTag("Obstacle") && _canBeDamaged)
         {
-            Singleton.Instance.SwipeManagerInstance.enabled = false; // Нужно будет заменить позже
+            Singleton.Instance.SwipeManagerInstance.enabled = false; // Нужно будет заменить позжe
             OnPlayerDeathEvent();
+            _canBeDamaged = false;
         }
     }
 }

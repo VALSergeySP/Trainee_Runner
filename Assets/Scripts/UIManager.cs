@@ -17,8 +17,13 @@ public class UIManager : MonoBehaviour
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += OnGameStart;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += OnGameReset;
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += OnPlayerDeath;
+        Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += OnGameContinue;
     }
 
+    void OnGameContinue()
+    {
+        _deathMenu.DOAnchorPos(_movementOffset, _movementTime);
+    }
 
     void OnGameStart()
     {
@@ -34,11 +39,6 @@ public class UIManager : MonoBehaviour
     {
         _deathMenu.DOAnchorPos(_movementOffset, _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
-    }
-
-    public void OnRespawnButton() // Test button
-    {
-        Singleton.Instance.LevelGenerationManagerInstance.ResetLevel();
     }
 
     public void ExitFromGameButton()

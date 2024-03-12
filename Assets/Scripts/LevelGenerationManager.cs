@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class LevelGenerationManager : MonoBehaviour
 {
-    public delegate void ResetLevelDelegate();
-    public event ResetLevelDelegate ResetLevelEvent;
-
-    public delegate void StartLevelDelegate();
-    public event StartLevelDelegate StartLevelEvent;
+    public delegate void LevelDelegate();
+    public event LevelDelegate ResetLevelEvent;
+    public event LevelDelegate StartLevelEvent;
+    public event LevelDelegate ContinueLevelEvent;
 
     [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10);
     [SerializeField] GameObject _levelPartPrefab;
@@ -18,6 +17,7 @@ public class LevelGenerationManager : MonoBehaviour
     [SerializeField] float _startSpeed = 3f;
     [SerializeField] float _timeToMaxSpeedInSec = 120f;
     float _currentSpeed = 0f;
+    float _stopSpeed;
     public float CurrentSpeed=> _currentSpeed;
     float _speedChangeStep;
     [SerializeField] int _maxLevelParts = 5;
@@ -52,9 +52,18 @@ public class LevelGenerationManager : MonoBehaviour
 
     public void StopLevel()
     {
+        _stopSpeed = _currentSpeed;
         _currentSpeed = 0f;
 
         StopAllCoroutines();
+    }
+
+    public void ContinueLevel()
+    {
+        _currentSpeed = _stopSpeed;
+        StartCoroutine(SpeedChangeRoutine());
+
+        ContinueLevelEvent?.Invoke();
     }
 
     public void ResetLevel()

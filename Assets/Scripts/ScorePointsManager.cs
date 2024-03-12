@@ -15,6 +15,7 @@ public class ScorePointsManager : MonoBehaviour
     {
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetScorePointsManager;
+        Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += ContinueScorePointManager;
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += StopScorePointsManager;
     }
 
@@ -50,10 +51,16 @@ public class ScorePointsManager : MonoBehaviour
         _scoreTextField.text = _currentScore.ToString();
     }
 
+    void ContinueScorePointManager()
+    {
+        StartCoroutine(ScorePointsRoutine(_scorePointsPerSecond));
+    }
+
     private void OnDisable()
     {
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent -= StartScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent -= ResetScorePointsManager;
+        Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent -= ContinueScorePointManager;
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent -= StopScorePointsManager;
     }
 }
