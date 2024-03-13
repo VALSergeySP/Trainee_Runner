@@ -8,12 +8,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] RectTransform _mainMenu;
     [SerializeField] RectTransform _deathMenu;
     [SerializeField] RectTransform _loadingMenu;
+    [SerializeField] RectTransform _leaderboardMenu;
     [SerializeField] Vector2 _movementOffset;
     [SerializeField] float _movementTime = 0.25f;
 
     void Start()
     {
-        _loadingMenu.DOAnchorPos(new Vector2(_movementOffset.x, -_movementOffset.y), _movementTime);
+        _loadingMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
 
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += OnGameStart;
@@ -24,12 +25,12 @@ public class UIManager : MonoBehaviour
 
     void OnGameContinue()
     {
-        _deathMenu.DOAnchorPos(_movementOffset, _movementTime);
+        _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
     }
 
     void OnGameStart()
     {
-        _mainMenu.DOAnchorPos(new Vector2(_movementOffset.x, -_movementOffset.y), _movementTime);
+        _mainMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
     }
 
     void OnPlayerDeath()
@@ -37,9 +38,21 @@ public class UIManager : MonoBehaviour
         _deathMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
+    public void OnLeadearboardButton()
+    {
+        _leaderboardMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        _mainMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
+    }
+
+    public void OnBackToMainMenuButton()
+    {
+        _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
+        _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
+    }
+
     void OnGameReset()
     {
-        _deathMenu.DOAnchorPos(_movementOffset, _movementTime);
+        _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
