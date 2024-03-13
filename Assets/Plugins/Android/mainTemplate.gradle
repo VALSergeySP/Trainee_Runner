@@ -18,7 +18,6 @@ dependencies {
 // Android Resolver Exclusions Start
 android {
   packagingOptions {
-      exclude ('/lib/arm64-v8a/*' + '*')
       exclude ('/lib/armeabi/*' + '*')
       exclude ('/lib/mips/*' + '*')
       exclude ('/lib/mips64/*' + '*')
@@ -61,3 +60,12 @@ android {
 **IL_CPP_BUILD_SETUP**
 **SOURCE_BUILD_SETUP**
 **EXTERNAL_SOURCES**
+
+android {
+    sourceSets {
+        main {
+            def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("", "/")
+            res.srcDirs += (unityProjectPath +  '/Assets/Plugins/Android/FirebaseApp.androidlib/res/values/google-services.xml')
+        }
+    }
+} 

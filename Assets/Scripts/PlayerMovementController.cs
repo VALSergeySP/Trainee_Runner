@@ -141,6 +141,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         _isJumping = true;
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+        _animator.ResetTrigger("StopJumping");
         _animator.SetTrigger("StartJumping");
         StartCoroutine(StopJumpingRoutine());
     }
