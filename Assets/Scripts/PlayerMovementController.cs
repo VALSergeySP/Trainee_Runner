@@ -124,9 +124,12 @@ public class PlayerMovementController : MonoBehaviour
 
         _isSliding = false;
 
+        _animator.SetTrigger("StopSliding");
+
+        yield return new WaitForSeconds(0.1f);
+
         _fullColider.enabled = true;
         _lowColider.enabled = false;
-        _animator.SetTrigger("StopSliding");
     }
 
     void StopJump()

@@ -13,9 +13,9 @@ public class ObstaclesGenerationManager : MonoBehaviour
     float _mapSize;
     public float LaneOffset => _laneOffset;
 
-    [SerializeField] GameObject ObstaclesTopPrefab;
-    [SerializeField] GameObject ObstaclesLowPrefab;
-    [SerializeField] GameObject ObstaclesFullPrefab;
+    [SerializeField] GameObject[] _obstaclesTopPrefabs;
+    [SerializeField] GameObject[] _obstaclesLowPrefabs;
+    [SerializeField] GameObject[] _obstaclesFullPrefabs;
 
     List<GameObject> generatedMaps = new();
     List<GameObject> activeMaps = new();
@@ -111,6 +111,7 @@ public class ObstaclesGenerationManager : MonoBehaviour
         MapObstacle mapObstacle = new();
         int fullObstacles;
         int randomNumber;
+        int variantNum;
         for (int i = 0; i < _linesOnMap; i++) // For every line on map
         {
             fullObstacles = 0;
@@ -122,13 +123,16 @@ public class ObstaclesGenerationManager : MonoBehaviour
                 switch(randomNumber)
                 {
                     case 0:
-                        mapObstacle.SetValues(ObstaclesTopPrefab, j);
+                        variantNum = Random.Range(0, _obstaclesTopPrefabs.Length);
+                        mapObstacle.SetValues(_obstaclesTopPrefabs[variantNum], j);
                         break;
                     case 1:
-                        mapObstacle.SetValues(ObstaclesLowPrefab, j);
+                        variantNum = Random.Range(0, _obstaclesLowPrefabs.Length);
+                        mapObstacle.SetValues(_obstaclesLowPrefabs[variantNum], j);
                         break;
                     case 2:
-                        mapObstacle.SetValues(ObstaclesFullPrefab, j);
+                        variantNum = Random.Range(0, _obstaclesFullPrefabs.Length);
+                        mapObstacle.SetValues(_obstaclesFullPrefabs[variantNum], j);
                         fullObstacles++;
                         break;
                     default:

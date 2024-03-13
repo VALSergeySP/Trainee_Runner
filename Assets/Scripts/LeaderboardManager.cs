@@ -27,6 +27,7 @@ public class LeaderboardManager : MonoBehaviour
     private void Start()
     {
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetLeaderBoard;
+        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += SendScoreData;
         StartCoroutine(UpdateUsernameDatabase(user.DisplayName));
     }
 
@@ -44,6 +45,13 @@ public class LeaderboardManager : MonoBehaviour
         Debug.Log("Setting up Firebase Database");
     }
 
+
+    void SendScoreData()
+    {
+        int score = Singleton.Instance.ScorePointsManagerInstance.CurrentScore;
+
+        StartCoroutine(UpdateScoreDatabase(score));
+    }
 
     void ResetLeaderBoard()
     {
@@ -95,7 +103,7 @@ public class LeaderboardManager : MonoBehaviour
                 score = snapshotScore;
             }
         }
-
+        Debug.Log("String current score to write: " + score);
 
         var DBTask = DBreference.Child("users").Child(user.UserId).Child("maxscore").SetValueAsync(score);
 

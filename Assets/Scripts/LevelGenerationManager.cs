@@ -10,7 +10,7 @@ public class LevelGenerationManager : MonoBehaviour
     public event LevelDelegate ContinueLevelEvent;
 
     [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10);
-    [SerializeField] GameObject _levelPartPrefab;
+    [SerializeField] GameObject[] _levelPartPrefabs;
     List<Transform> _levelParts = new();
 
     [SerializeField] float _maxMovementSpeed = 10f;
@@ -111,7 +111,9 @@ public class LevelGenerationManager : MonoBehaviour
         Vector3 position = Vector3.zero;
         if(_levelParts.Count > 0) { position = _levelParts[^1].position + PART_OFFSET; }
 
-        Transform newPart = Singleton.Instance.PoolManagerInstance.Spawn(_levelPartPrefab, position, Quaternion.identity).transform;
+        int num = Random.Range(0, _levelPartPrefabs.Length);
+
+        Transform newPart = Singleton.Instance.PoolManagerInstance.Spawn(_levelPartPrefabs[num], position, Quaternion.identity).transform;
         newPart.SetParent(transform);
         _levelParts.Add(newPart);
     }

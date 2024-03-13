@@ -714,7 +714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &364258317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1466,17 +1466,17 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
+    m_Type: 0
+    m_Resolution: 0
     m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
+    m_Strength: 0.684
+    m_Bias: 0
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
@@ -2530,9 +2530,13 @@ MonoBehaviour:
   _linesOnMap: 5
   _mapsToGenerateOnStart: 10
   _mapStartOffset: 40
-  ObstaclesTopPrefab: {fileID: 8413285050755335161, guid: ec3edbbb65db06649ae6019f61adcd5d, type: 3}
-  ObstaclesLowPrefab: {fileID: 3417596434977357038, guid: 9bc66409ba414d64d8ab34c37ea7f74a, type: 3}
-  ObstaclesFullPrefab: {fileID: 384513379225165742, guid: 7ffdff8508f65f847982b28b2eb67066, type: 3}
+  _obstaclesTopPrefabs:
+  - {fileID: 8413285050755335161, guid: ec3edbbb65db06649ae6019f61adcd5d, type: 3}
+  _obstaclesLowPrefabs:
+  - {fileID: 3417596434977357038, guid: 9bc66409ba414d64d8ab34c37ea7f74a, type: 3}
+  _obstaclesFullPrefabs:
+  - {fileID: 384513379225165742, guid: 7ffdff8508f65f847982b28b2eb67066, type: 3}
+  - {fileID: 384513379225165742, guid: 36a90ab22f150cb42a19d170d058e96e, type: 3}
 --- !u!4 &1005963097
 Transform:
   m_ObjectHideFlags: 0
@@ -4930,8 +4934,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a89ff9de4aba064eb175e40fa2db7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PART_OFFSET: {x: 0, y: 0, z: 10}
-  _levelPartPrefab: {fileID: 4713541878230901481, guid: 81603fa007a946446b909c47d042e37c, type: 3}
+  PART_OFFSET: {x: 0, y: 0, z: 20}
+  _levelPartPrefabs:
+  - {fileID: 4713541878230901481, guid: 81603fa007a946446b909c47d042e37c, type: 3}
+  - {fileID: 4713541878230901481, guid: 0ce1d5cbeb853ac4787aac6d23acb5c1, type: 3}
   _maxMovementSpeed: 25
   _startSpeed: 5
   _timeToMaxSpeedInSec: 240
