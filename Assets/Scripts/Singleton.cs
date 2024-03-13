@@ -29,6 +29,9 @@ public class Singleton : MonoBehaviour
     [SerializeField] private RespawnAdsRewardedController _respawnAdsRewarded;
     public RespawnAdsRewardedController RespawnAdsRewardedControllerInstance => _respawnAdsRewarded;
 
+    [SerializeField] private LeaderboardManager _leaderboardManager;
+    public LeaderboardManager LeaderboardManagerInstance => _leaderboardManager;
+
     void Awake()
     {
         if (Instance == null)

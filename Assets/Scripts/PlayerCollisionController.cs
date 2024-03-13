@@ -13,6 +13,7 @@ public class PlayerCollisionController : MonoBehaviour
     private void Start()
     {
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += ContinuePlayerCollisions;
+        Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetInvinc;
     }
 
     void ContinuePlayerCollisions()

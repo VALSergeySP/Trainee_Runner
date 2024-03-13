@@ -677,7 +677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &364258317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1492,7 +1492,7 @@ MonoBehaviour:
   _deathMenu: {fileID: 1565839745}
   _loadingMenu: {fileID: 364258317}
   _leaderboardMenu: {fileID: 498029008}
-  _movementOffset: {x: 1080, y: 1920}
+  _movementOffset: {x: 1200, y: 2100}
   _movementTime: 0.5
 --- !u!4 &637545178
 Transform:
@@ -3006,6 +3006,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064208469}
   m_CullTransparentMesh: 1
+--- !u!1 &1134152013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134152014}
+  - component: {fileID: 1134152015}
+  m_Layer: 0
+  m_Name: LeaderboardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1134152014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134152013}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 95.17714, y: 418.94376, z: 2.3471835}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1134152015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134152013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5b78b86e066f64db9ae2e6075cd4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _top20Names: {fileID: 1059103707}
+  _top20Scores: {fileID: 2129710616}
+  _currentUserName: {fileID: 1460047882}
+  _currentUserScore: {fileID: 99857851}
 --- !u!1 &1171258652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,6 +3708,7 @@ MonoBehaviour:
   _uiManager: {fileID: 637545177}
   _playerCollisionController: {fileID: 369699562}
   _respawnAdsRewarded: {fileID: 2078062229}
+  _leaderboardManager: {fileID: 1134152015}
 --- !u!4 &1516208531
 Transform:
   m_ObjectHideFlags: 0
@@ -5438,6 +5487,7 @@ SceneRoots:
   - {fileID: 637545178}
   - {fileID: 96904906}
   - {fileID: 2078062228}
+  - {fileID: 1134152014}
   - {fileID: 381791283}
   - {fileID: 961199542}
   - {fileID: 174179273}

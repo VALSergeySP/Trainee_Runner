@@ -1,7 +1,7 @@
 {
   "project_info": {
-    "firebase_url": "null",
     "project_number": "475073542816",
+    "firebase_url": "https://runner-9f31d-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "runner-9f31d",
     "storage_bucket": "runner-9f31d.appspot.com"
   },
