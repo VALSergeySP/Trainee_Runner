@@ -5,6 +5,7 @@ using Firebase.Auth;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class AuthManager : MonoBehaviour
 {
@@ -32,31 +33,38 @@ public class AuthManager : MonoBehaviour
     [Space]
 
     public UnityEvent success;
+    public UnityEvent successRegistration;
 
 
-
-    void Awake()
+    private void Start()
     {
-        //Check that all of the necessary dependencies for Firebase are present on the system
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        StartCoroutine(CheckAndFixDependenciesAsync());      
+    }
+
+
+    IEnumerator CheckAndFixDependenciesAsync()
+    {
+        var dependencyTask = FirebaseApp.CheckAndFixDependenciesAsync();
+
+        yield return new WaitUntil(() => dependencyTask.IsCompleted);
+        
+        dependencyStatus = dependencyTask.Result;
+
+        if (dependencyStatus == DependencyStatus.Available)
         {
-            dependencyStatus = task.Result;
-            if (dependencyStatus == DependencyStatus.Available)
-            {
-                InitializeFirebase();
-            }
-            else
-            {
-                Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
-            }
-        });
+            InitializeFirebase();
+
+            yield return new WaitForEndOfFrame();
+
+            StartCoroutine(CheckForAutoLogin());
+        }
+        else
+        {
+            Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
+        }
+        
     }
 
-
-    public void StartCheckUser()
-    {
-        CheckUser();
-    }
 
     private void InitializeFirebase()
     {
@@ -64,8 +72,32 @@ public class AuthManager : MonoBehaviour
         auth = FirebaseAuth.DefaultInstance;
 
         auth.StateChanged += AuthStateChanged;
-        StartCheckUser();
         AuthStateChanged(this, null);
+    }
+
+    IEnumerator CheckForAutoLogin()
+    {
+        int isRememberMe = PlayerPrefs.GetInt("RememberMe", 0);
+
+        if (isRememberMe == 1)
+        {
+            if (user != null)
+            {
+                var reloadUser = user.ReloadAsync();
+
+                yield return new WaitUntil(() => reloadUser.IsCompleted);
+
+                AutoLogin();
+            }
+        }
+    }
+
+    void AutoLogin()
+    {
+        if(user != null)
+        {
+            success?.Invoke();
+        }
     }
 
 
@@ -91,16 +123,6 @@ public class AuthManager : MonoBehaviour
     {
         auth.StateChanged -= AuthStateChanged;
         auth = null;
-    }
-
-
-
-    void CheckUser()
-    {
-        if (FirebaseAuth.DefaultInstance.CurrentUser != null)
-        {
-            success?.Invoke();
-        }
     }
 
 
@@ -164,10 +186,12 @@ public class AuthManager : MonoBehaviour
 
             Debug.Log(rememberMeToggle.isOn);
 
-            // «агрузка главного меню после авторизации
-            if(!rememberMeToggle.isOn)
+            if(rememberMeToggle.isOn)
             {
-                FirebaseAuth.DefaultInstance.SignOut();
+                PlayerPrefs.SetInt("RememberMe", 1);
+            } else
+            {
+                PlayerPrefs.SetInt("RememberMe", 2);
             }
 
             success?.Invoke();
@@ -252,10 +276,16 @@ public class AuthManager : MonoBehaviour
                         //Now return to login screen
                         //UIManager.instance.LoginScreen();
                         warningRegisterText.text = "";
-                        success?.Invoke();
+                        RegistrationSuccess();
                     }
                 }
             }
         }
+    }
+
+    void RegistrationSuccess()
+    {
+        emailLoginField.text = user.Email;
+        successRegistration?.Invoke();
     }
 }

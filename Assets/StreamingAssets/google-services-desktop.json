@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "firebase_url": "null",
+    "project_number": "475073542816",
+    "project_id": "runner-9f31d",
+    "storage_bucket": "runner-9f31d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475073542816:android:a146dcd20da19fe40e27c5",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.Trainee_Runner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3XOLsmjaZR5LwXpMLw3-o2gRwXHSwp7Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

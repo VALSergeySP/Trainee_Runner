@@ -15,7 +15,14 @@ public class UIAuthManager : MonoBehaviour
         // Добавить проверку на первый запуск игры и открытие меню регистрации
 
         _loadingMenu.DOAnchorPos(new Vector2(0, 2000), _movementTime);
-        _authMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        if (PlayerPrefs.GetInt("RememberMe", 0) == 0)
+        {
+            _registrationMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        }
+        else
+        {
+            _authMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        }
     }
 
     public void OnAuthorization()
