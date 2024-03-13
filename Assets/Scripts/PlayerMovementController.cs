@@ -11,6 +11,9 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] float _jumpForce = 15f;
     [SerializeField] float _slidingTime = 1.5f;
 
+    [SerializeField] Collider _fullColider;
+    [SerializeField] Collider _lowColider;
+
     Rigidbody _rb;
     Animator _animator;
 
@@ -33,16 +36,20 @@ public class PlayerMovementController : MonoBehaviour
 
         Singleton.Instance.SwipeManagerInstance.Movement += MovePlayer;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetPlayer;
+        Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartPlayer;
+        Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += StartPlayer;
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += OnPlayerDeath;
         _laneOffset = Singleton.Instance.ObstaclesGenerationManagerInstance.LaneOffset;
     }
 
+    void StartPlayer()
+    {
+        _animator.SetTrigger("StartRunning");
+    }
+
     void OnPlayerDeath()
     {
-        if(_isMoving)
-        {
-            StopCoroutine(_movementRoutine);
-        }
+        _animator.SetTrigger("StopRunning");
     }
 
 
@@ -94,6 +101,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         StopCoroutine(SlidingRoutine());
         _isSliding = false;
+        _fullColider.enabled = true;
+        _lowColider.enabled = false;
         _animator.SetTrigger("StopSliding");
     }
 
@@ -101,6 +110,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         _isSliding = true;
         _animator.ResetTrigger("StopSliding");
+        _fullColider.enabled = false;
+        _lowColider.enabled = true;
 
         StartCoroutine(SlidingRoutine());
     }
@@ -112,6 +123,9 @@ public class PlayerMovementController : MonoBehaviour
         yield return new WaitForSeconds(_slidingTime);
 
         _isSliding = false;
+
+        _fullColider.enabled = true;
+        _lowColider.enabled = false;
         _animator.SetTrigger("StopSliding");
     }
 
@@ -124,7 +138,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         _isJumping = true;
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-
+        _animator.SetTrigger("StartJumping");
         StartCoroutine(StopJumpingRoutine());
     }
 
@@ -136,6 +150,7 @@ public class PlayerMovementController : MonoBehaviour
         } while (_rb.velocity.y != 0);
 
         _isJumping = false;
+        _animator.SetTrigger("StopJumping");
     }
 
     void MoveHorizontal(float speed)

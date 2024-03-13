@@ -87,6 +87,8 @@ public class LeaderboardManager : MonoBehaviour
         } else if (DBGetTask.Result.Value != null)
         {
             int snapshotScore = int.Parse(DBGetTask.Result.Value.ToString());
+            Debug.Log(snapshotScore);
+            Debug.Log("String: " + DBGetTask.Result.Value.ToString());
 
             if (score < snapshotScore)
             {
