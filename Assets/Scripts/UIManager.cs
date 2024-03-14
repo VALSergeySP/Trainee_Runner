@@ -14,12 +14,12 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        _movementOffset = new Vector2(_mainMenu.rect.width, _mainMenu.rect.height);
+        _movementOffset = new Vector2(_mainMenu.rect.width + 100f, _mainMenu.rect.height + 100f);
 
         _loadingMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
-        _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
-        _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
-        _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
+        _mainMenu.DOAnchorPos(Vector2.zero, 0);
+        _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), 0);
+        _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), 0);
 
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += OnGameStart;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += OnGameReset;
