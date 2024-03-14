@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] RectTransform _loadingMenu;
     [SerializeField] RectTransform _leaderboardMenu;
     [SerializeField] RectTransform _pauseMenu;
-    //[SerializeField] RectTransform _optionsMenu;
+    [SerializeField] RectTransform _optionsMenu;
     Vector2 _movementOffset;
     [SerializeField] float _movementTime = 0.25f;
 
@@ -30,6 +30,18 @@ public class UIManager : MonoBehaviour
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += OnGameReset;
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += OnPlayerDeath;
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += OnGameContinue;
+    }
+
+    public void OnOptionsButton()
+    {
+        _mainMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
+        _optionsMenu.DOAnchorPos(Vector2.zero, _movementTime);
+    }
+
+    public void OnReturnFromOptionsButton()
+    {
+        _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        _optionsMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
     }
 
     void OnGameContinue()
