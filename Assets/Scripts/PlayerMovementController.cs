@@ -46,17 +46,18 @@ public class PlayerMovementController : MonoBehaviour
     void StartPlayer()
     {
         _animator.SetTrigger("StartRunning");
+        _animator.SetBool("IsPlayerDead", false);
     }
 
     void OnPlayerDeath()
-    { 
-        
-        _animator.SetTrigger("StopRunning");
+    {
+        _animator.SetBool("IsPlayerDead", true);
     }
 
 
     void ResetPlayer()
     {
+        _animator.SetBool("IsPlayerDead", false);
         _animator.ResetTrigger("StopSliding");
         _animator.ResetTrigger("StartSliding");
 

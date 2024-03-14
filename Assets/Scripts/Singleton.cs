@@ -32,6 +32,9 @@ public class Singleton : MonoBehaviour
     [SerializeField] private LeaderboardManager _leaderboardManager;
     public LeaderboardManager LeaderboardManagerInstance => _leaderboardManager;
 
+    VolumeManager _volumeManager;
+    public VolumeManager VolumeManagerInstance => _volumeManager;
+
     void Awake()
     {
         if (Instance == null)
@@ -43,5 +46,7 @@ public class Singleton : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        _volumeManager = GameObject.FindFirstObjectByType<VolumeManager>();
     }
 }
