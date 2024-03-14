@@ -10,9 +10,12 @@ public class UIAuthManager : MonoBehaviour
     [SerializeField] Vector2 _transformOffset;
     [SerializeField] float _movementTime;
 
+    AudioSource _audioSource;
+    [SerializeField] AudioClip _buttonClickSound;
     private void Start()
     {
         // Добавить проверку на первый запуск игры и открытие меню регистрации
+        _audioSource = GetComponent<AudioSource>();
 
         Application.targetFrameRate = 60;
 
@@ -25,6 +28,11 @@ public class UIAuthManager : MonoBehaviour
         {
             _authMenu.DOAnchorPos(Vector2.zero, _movementTime);
         }
+    }
+
+    public void PlayButtonSound()
+    {
+        _audioSource.PlayOneShot(_buttonClickSound);
     }
 
     public void OnAuthorization()

@@ -17,6 +17,10 @@ public class PlayerMovementController : MonoBehaviour
 
     Rigidbody _rb;
     Animator _animator;
+    AudioSource _audioSource;
+
+    [SerializeField] AudioClip _slideSound;
+    [SerializeField] AudioClip _jumpSound;
 
     float _pointStart;
     float _pointFinish;
@@ -31,6 +35,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
 
         _playerStartPosition = transform.position;
         _playerStartRotation = transform.rotation;
@@ -116,6 +121,7 @@ public class PlayerMovementController : MonoBehaviour
         _fullColider.enabled = false;
         _lowColider.enabled = true;
 
+        _audioSource.PlayOneShot(_slideSound);
         StartCoroutine(SlidingRoutine());
     }
 
@@ -147,6 +153,7 @@ public class PlayerMovementController : MonoBehaviour
         _animator.ResetTrigger("StopJumping");
         _animator.SetTrigger("StartJumping");
         StartCoroutine(StopJumpingRoutine());
+        _audioSource.PlayOneShot(_jumpSound);
     }
 
     IEnumerator StopJumpingRoutine()

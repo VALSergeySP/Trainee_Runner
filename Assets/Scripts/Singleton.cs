@@ -35,6 +35,9 @@ public class Singleton : MonoBehaviour
     VolumeManager _volumeManager;
     public VolumeManager VolumeManagerInstance => _volumeManager;
 
+    BackgroundSoundManager _backgroundsoundManager;
+    public BackgroundSoundManager BackgroundSoundManagerInstance => _backgroundsoundManager;
+
     void Awake()
     {
         if (Instance == null)
@@ -48,5 +51,6 @@ public class Singleton : MonoBehaviour
         }
 
         _volumeManager = GameObject.FindFirstObjectByType<VolumeManager>();
+        _backgroundsoundManager = GameObject.FindFirstObjectByType<BackgroundSoundManager>();
     }
 }

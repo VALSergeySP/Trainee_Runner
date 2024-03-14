@@ -15,8 +15,13 @@ public class UIManager : MonoBehaviour
     Vector2 _movementOffset;
     [SerializeField] float _movementTime = 0.25f;
 
+    AudioSource _audioSource;
+    [SerializeField] AudioClip _buttonClickSound;
+
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+
         _movementOffset = new Vector2(_mainMenu.rect.width + 100f, _mainMenu.rect.height + 100f);
 
         _loadingMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
@@ -30,6 +35,11 @@ public class UIManager : MonoBehaviour
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += OnGameReset;
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += OnPlayerDeath;
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += OnGameContinue;
+    }
+
+    public void PlayButtonSound()
+    {
+        _audioSource.PlayOneShot(_buttonClickSound);
     }
 
     public void OnOptionsButton()

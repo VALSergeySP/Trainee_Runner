@@ -23,8 +23,13 @@ public class LevelGenerationManager : MonoBehaviour
     float _speedChangeStep;
     [SerializeField] int _maxLevelParts = 5;
 
+    AudioSource _audioSource;
+
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+
+
         ResetLevel();
 
         Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += StopLevel;
@@ -76,7 +81,7 @@ public class LevelGenerationManager : MonoBehaviour
 
         StopAllCoroutines();
 
-        while(_levelParts.Count > 0)
+        while (_levelParts.Count > 0)
         {
             Singleton.Instance.PoolManagerInstance.Despawn(_levelParts[0].gameObject);
             _levelParts.RemoveAt(0);
@@ -88,6 +93,10 @@ public class LevelGenerationManager : MonoBehaviour
         }
 
         ResetLevelEvent?.Invoke();
+        if (Singleton.Instance.BackgroundSoundManagerInstance != null)
+        {
+            Singleton.Instance.BackgroundSoundManagerInstance.StopGameBackgroundMusic();
+        }
     }
 
     public void StartLevel()
@@ -95,6 +104,11 @@ public class LevelGenerationManager : MonoBehaviour
         _currentSpeed = _startSpeed;
         StartLevelEvent?.Invoke();
         StartCoroutine(SpeedChangeRoutine());
+        _audioSource.Play();
+        if (Singleton.Instance.BackgroundSoundManagerInstance != null)
+        {
+            Singleton.Instance.BackgroundSoundManagerInstance.StartGameBackgroundMusic();
+        }    
     }
 
     IEnumerator SpeedChangeRoutine()
