@@ -9,13 +9,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] RectTransform _deathMenu;
     [SerializeField] RectTransform _loadingMenu;
     [SerializeField] RectTransform _leaderboardMenu;
-    [SerializeField] Vector2 _movementOffset;
+    Vector2 _movementOffset;
     [SerializeField] float _movementTime = 0.25f;
 
     void Start()
     {
+        _movementOffset = new Vector2(_mainMenu.rect.width, _mainMenu.rect.height);
+
         _loadingMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
+        _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
 
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += OnGameStart;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += OnGameReset;
