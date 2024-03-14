@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerCollisionController : MonoBehaviour
 {
-    public delegate void OnPlayerDeath();
-    public event OnPlayerDeath OnPlayerDeathEvent;
+    public delegate void CollisionPlayerDelegate();
+    public event CollisionPlayerDelegate OnPlayerDeathEvent;
+    public event CollisionPlayerDelegate OnItemCollectedEvent;
 
     [SerializeField] float _onRespawnInvincTime = 1f;
     bool _canBeDamaged = true;
+
 
     private void Start()
     {
@@ -30,9 +32,14 @@ public class PlayerCollisionController : MonoBehaviour
     {
         if(other.CompareTag("Obstacle") && _canBeDamaged)
         {
-            Singleton.Instance.SwipeManagerInstance.enabled = false; // Нужно будет заменить позжe
-            OnPlayerDeathEvent();
+            Singleton.Instance.SwipeManagerInstance.enabled = false;
+            OnPlayerDeathEvent?.Invoke();
             _canBeDamaged = false;
+        } else if (other.CompareTag("Collectable"))
+        {
+            Singleton.Instance.PoolManagerInstance.Despawn(other.gameObject);
+            OnItemCollectedEvent?.Invoke();
+            Debug.Log("Object collected!");
         }
     }
 }

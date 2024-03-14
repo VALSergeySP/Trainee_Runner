@@ -9,6 +9,7 @@ public class PlayerMovementController : MonoBehaviour
     float _laneOffset;
     [SerializeField] float _laneChangeSpeed = 15f;
     [SerializeField] float _jumpForce = 15f;
+    [SerializeField] float _jumpStopCoef = 1.5f;
     [SerializeField] float _slidingTime = 1.5f;
 
     [SerializeField] Collider _fullColider;
@@ -134,7 +135,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void StopJump()
     {
-        _rb.AddForce(Vector3.down * _jumpForce, ForceMode.Impulse);
+        _rb.AddForce(_jumpForce * _jumpStopCoef * Vector3.down, ForceMode.Impulse);
     }
 
     void Jump()
@@ -183,7 +184,7 @@ public class PlayerMovementController : MonoBehaviour
             transform.position = new Vector3(x, transform.position.y, transform.position.z);
         }
 
-        _rb.velocity = Vector3.zero;
+        _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
         transform.position = new Vector3(_pointFinish, transform.position.y, transform.position.z);
         _isMoving = false;
     }

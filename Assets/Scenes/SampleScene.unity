@@ -826,7 +826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &364258317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2748,8 +2748,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSpacingDistance: 40
-  _linesOnMap: 5
-  _mapsToGenerateOnStart: 10
+  _linesOnMap: 4
+  _mapsToGenerateOnStart: 5
   _mapStartOffset: 40
   _obstaclesTopPrefabs:
   - {fileID: 8413285050755335161, guid: ec3edbbb65db06649ae6019f61adcd5d, type: 3}
@@ -2759,6 +2759,13 @@ MonoBehaviour:
   _obstaclesFullPrefabs:
   - {fileID: 384513379225165742, guid: 7ffdff8508f65f847982b28b2eb67066, type: 3}
   - {fileID: 384513379225165742, guid: 36a90ab22f150cb42a19d170d058e96e, type: 3}
+  _objectPrefabs:
+  - {fileID: 7400776544277163560, guid: c0caefe5072d539499841dcdf3377f55, type: 3}
+  - {fileID: 4608670771022572242, guid: ef288f17a1c8f77459084294a0759530, type: 3}
+  - {fileID: 85224889698259193, guid: 18410982ea058d146b91fcd42bca146d, type: 3}
+  _objectsSpawnProbability: 25
+  _objectsInItem: 10
+  _objectsSpawnHeight: 0.7
 --- !u!4 &1005963097
 Transform:
   m_ObjectHideFlags: 0
@@ -8356,6 +8363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laneChangeSpeed: 15
   _jumpForce: 7
+  _jumpStopCoef: 1.5
   _slidingTime: 1
   _fullColider: {fileID: 4540228999618848376}
   _lowColider: {fileID: 4540228999618848379}
