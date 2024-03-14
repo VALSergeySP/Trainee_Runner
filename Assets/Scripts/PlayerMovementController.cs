@@ -39,7 +39,7 @@ public class PlayerMovementController : MonoBehaviour
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetPlayer;
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartPlayer;
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += StartPlayer;
-        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += OnPlayerDeath;
+        Singleton.Instance.LevelGenerationManagerInstance.PauseLevelEvent += OnPlayerDeath;
         _laneOffset = Singleton.Instance.ObstaclesGenerationManagerInstance.LaneOffset;
     }
 
@@ -49,7 +49,8 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     void OnPlayerDeath()
-    {
+    { 
+        
         _animator.SetTrigger("StopRunning");
     }
 

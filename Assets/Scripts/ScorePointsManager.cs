@@ -16,7 +16,7 @@ public class ScorePointsManager : MonoBehaviour
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += ResetScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += ContinueScorePointManager;
-        Singleton.Instance.PlayerCollisionControllerInstance.OnPlayerDeathEvent += StopScorePointsManager;
+        Singleton.Instance.LevelGenerationManagerInstance.PauseLevelEvent += StopScorePointsManager;
     }
 
     void StartScorePointsManager()

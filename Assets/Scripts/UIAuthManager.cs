@@ -14,6 +14,8 @@ public class UIAuthManager : MonoBehaviour
     {
         // Добавить проверку на первый запуск игры и открытие меню регистрации
 
+        Application.targetFrameRate = 60;
+
         _loadingMenu.DOAnchorPos(new Vector2(0, 2000), _movementTime);
         if (PlayerPrefs.GetInt("RememberMe", 0) == 0)
         {

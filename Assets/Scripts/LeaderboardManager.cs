@@ -18,6 +18,8 @@ public class LeaderboardManager : MonoBehaviour
 
     [SerializeField] TMP_Text _currentUserName;
     [SerializeField] TMP_Text _currentUserScore;
+    [SerializeField] TMP_Text _currentUserNamePause;
+    [SerializeField] TMP_Text _currentUserScorePause;
 
     private void Awake()
     {
@@ -132,14 +134,17 @@ public class LeaderboardManager : MonoBehaviour
         else if (DBTask.Result.Value == null)
         {
             _currentUserScore.text = "0";
+            _currentUserScorePause.text = "0";
         } else
         {
             DataSnapshot snapshot = DBTask.Result;
 
             _currentUserScore.text = snapshot.Child("maxscore").Value.ToString();
+            _currentUserScorePause.text = snapshot.Child("maxscore").Value.ToString();
         }
 
         _currentUserName.text = user.DisplayName;
+        _currentUserNamePause.text = user.DisplayName;
     }
 
     IEnumerator LoadLeaderboardData()

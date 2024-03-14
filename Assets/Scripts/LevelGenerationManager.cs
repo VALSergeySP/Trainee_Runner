@@ -8,6 +8,7 @@ public class LevelGenerationManager : MonoBehaviour
     public event LevelDelegate ResetLevelEvent;
     public event LevelDelegate StartLevelEvent;
     public event LevelDelegate ContinueLevelEvent;
+    public event LevelDelegate PauseLevelEvent;
 
     [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10);
     [SerializeField] GameObject[] _levelPartPrefabs;
@@ -54,6 +55,8 @@ public class LevelGenerationManager : MonoBehaviour
     {
         _stopSpeed = _currentSpeed;
         _currentSpeed = 0f;
+
+        PauseLevelEvent?.Invoke();
 
         StopAllCoroutines();
     }

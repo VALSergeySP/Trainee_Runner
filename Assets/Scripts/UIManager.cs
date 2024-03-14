@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] RectTransform _mainMenu;
+    [SerializeField] RectTransform _gameMenu;
     [SerializeField] RectTransform _deathMenu;
     [SerializeField] RectTransform _loadingMenu;
     [SerializeField] RectTransform _leaderboardMenu;
+    [SerializeField] RectTransform _pauseMenu;
+    //[SerializeField] RectTransform _optionsMenu;
     Vector2 _movementOffset;
     [SerializeField] float _movementTime = 0.25f;
 
@@ -20,6 +23,8 @@ public class UIManager : MonoBehaviour
         _mainMenu.DOAnchorPos(Vector2.zero, 0);
         _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), 0);
         _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), 0);
+        _pauseMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), 0);
+        _gameMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), 0);
 
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += OnGameStart;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent += OnGameReset;
@@ -35,6 +40,7 @@ public class UIManager : MonoBehaviour
     void OnGameStart()
     {
         _mainMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
+        _gameMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
     void OnPlayerDeath()
@@ -48,6 +54,19 @@ public class UIManager : MonoBehaviour
         _mainMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
     }
 
+    public void OnPauseButton()
+    {
+        _pauseMenu.DOAnchorPos(Vector2.zero, 0);
+        Time.timeScale = 0f;
+        _gameMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), 0);
+    }
+    public void OnResumeButton()
+    {
+        Time.timeScale = 1f;
+        _pauseMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
+        _gameMenu.DOAnchorPos(Vector2.zero, _movementTime);
+    }
+
     public void OnBackToMainMenuButton()
     {
         _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
@@ -58,6 +77,7 @@ public class UIManager : MonoBehaviour
     {
         _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
+        _gameMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), 0);
     }
 
     public void LogOutButton()
