@@ -106,7 +106,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponRack_Small
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5895583696832419095, guid: 33b88a355dbcf1249aeafebe7d0f5879, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

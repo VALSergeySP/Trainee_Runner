@@ -25,6 +25,8 @@ public class LevelGenerationManager : MonoBehaviour
 
     AudioSource _audioSource;
 
+    bool _isFirstStart = true;
+
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
@@ -93,10 +95,12 @@ public class LevelGenerationManager : MonoBehaviour
         }
 
         ResetLevelEvent?.Invoke();
-        if (Singleton.Instance.BackgroundSoundManagerInstance != null)
+        if (Singleton.Instance.BackgroundSoundManagerInstance != null && !_isFirstStart)
         {
             Singleton.Instance.BackgroundSoundManagerInstance.StopGameBackgroundMusic();
         }
+
+        _isFirstStart = false;
     }
 
     public void StartLevel()
