@@ -10,6 +10,7 @@ public class UIDeathMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        respawnButton.gameObject.SetActive(false);
         respawnButton.interactable = false;
 
         Singleton.Instance.RespawnAdsRewardedControllerInstance.RespawnAdsLoadedEvent += OnAdLoaded;
@@ -19,6 +20,7 @@ public class UIDeathMenuController : MonoBehaviour
 
     void OnAdLoaded()
     {
+        respawnButton.gameObject.SetActive(true);
         respawnButton.interactable = true;
     }
 
@@ -30,6 +32,7 @@ public class UIDeathMenuController : MonoBehaviour
 
     void OnAdReward()
     {
+        respawnButton.gameObject.SetActive(false);
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevel();
     }
 

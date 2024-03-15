@@ -71,6 +71,7 @@ public class PlayerMovementController : MonoBehaviour
         _animator.ResetTrigger("StartSliding");
 
         _rb.velocity = Vector3.zero;
+        _rb.interpolation = RigidbodyInterpolation.None;
         _isMoving = false;
         _isJumping = false;
         _isSliding = false;
@@ -195,6 +196,7 @@ public class PlayerMovementController : MonoBehaviour
             StopCoroutine(_movementRoutine);
             _isMoving = false;
         }
+        _rb.interpolation = RigidbodyInterpolation.Interpolate;
         _movementRoutine = StartCoroutine(MoveRoutine(speed));
     }
 
@@ -211,6 +213,7 @@ public class PlayerMovementController : MonoBehaviour
             transform.position = new Vector3(x, transform.position.y, transform.position.z);
         }
 
+        _rb.interpolation = RigidbodyInterpolation.None;
         _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
         transform.position = new Vector3(_pointFinish, transform.position.y, transform.position.z);
         _isMoving = false;
