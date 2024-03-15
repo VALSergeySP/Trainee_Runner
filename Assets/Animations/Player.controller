@@ -298,37 +298,37 @@ AnimatorStateMachine:
     m_Position: {x: 90, y: -60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4869711054725156140}
-    m_Position: {x: 180, y: 80, z: 0}
+    m_Position: {x: 90, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5341575724724919595}
-    m_Position: {x: 390, y: -140, z: 0}
+    m_Position: {x: 330, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2818507120878542736}
-    m_Position: {x: 560, y: -20, z: 0}
+    m_Position: {x: 620, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6159856461352799235}
     m_Position: {x: 90, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2948783739227739480}
-    m_Position: {x: -130, y: 330, z: 0}
+    m_Position: {x: -210, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 507132587233142595}
-    m_Position: {x: -330, y: 190, z: 0}
+    m_Position: {x: -220, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2152568708128106960}
-    m_Position: {x: 500, y: 110, z: 0}
+    m_Position: {x: 620, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4694492619660879083}
-    m_Position: {x: 420, y: 250, z: 0}
+    m_Position: {x: 390, y: 240, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -5822592598705184570}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -40, y: -150, z: 0}
-  m_EntryPosition: {x: -110, y: 20, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_AnyStatePosition: {x: 240, y: -290, z: 0}
+  m_EntryPosition: {x: -210, y: -70, z: 0}
+  m_ExitPosition: {x: 410, y: 340, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 974468715744326896}
 --- !u!91 &9100000
@@ -378,6 +378,18 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: IsPlayerDead
     m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: PlayerDeath
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: PlayerRewive
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0

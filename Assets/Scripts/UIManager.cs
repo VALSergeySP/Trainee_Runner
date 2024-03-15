@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+
         _audioSource = GetComponent<AudioSource>();
 
         _movementOffset = new Vector2(_mainMenu.rect.width + 100f, _mainMenu.rect.height + 100f);
