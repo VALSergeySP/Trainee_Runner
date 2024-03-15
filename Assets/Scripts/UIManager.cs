@@ -78,7 +78,11 @@ public class UIManager : MonoBehaviour
         _leaderboardMenu.DOAnchorPos(Vector2.zero, _movementTime);
         _mainMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
     }
-
+    public void OnBackToMainMenuPauseButton()
+    {
+        Time.timeScale = 1f;
+        Singleton.Instance.LevelGenerationManagerInstance.ResetLevel();
+    }
     public void OnPauseButton()
     {
         _pauseMenu.DOAnchorPos(Vector2.zero, 0);
@@ -102,7 +106,8 @@ public class UIManager : MonoBehaviour
     {
         _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
-        _gameMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), 0);
+        _gameMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
+        _pauseMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
     }
 
     public void LogOutButton()

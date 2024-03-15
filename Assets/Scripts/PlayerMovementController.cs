@@ -45,6 +45,7 @@ public class PlayerMovementController : MonoBehaviour
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += StartPlayer;
         Singleton.Instance.LevelGenerationManagerInstance.ContinueLevelEvent += StartPlayer;
         Singleton.Instance.LevelGenerationManagerInstance.PauseLevelEvent += OnPlayerDeath;
+        Singleton.Instance.PlayerCollisionControllerInstance.PlayerOnTheGround += ResetJump;
         _laneOffset = Singleton.Instance.ObstaclesGenerationManagerInstance.LaneOffset;
     }
 
@@ -62,6 +63,9 @@ public class PlayerMovementController : MonoBehaviour
 
     void ResetPlayer()
     {
+        _animator.SetTrigger("StopRunning");
+        _animator.SetBool("IsPlayerSliding", false);
+        _animator.SetBool("IsPlayerJumping", false);
         _animator.SetBool("IsPlayerDead", false);
         _animator.ResetTrigger("StopSliding");
         _animator.ResetTrigger("StartSliding");
@@ -102,6 +106,7 @@ public class PlayerMovementController : MonoBehaviour
         if (swipeDirections[(int)SwipeManager.Direction.Up] && _isSliding)
         {
             StopSlide();
+            Jump();
         }
     }
 
@@ -111,13 +116,24 @@ public class PlayerMovementController : MonoBehaviour
         _isSliding = false;
         _fullColider.enabled = true;
         _lowColider.enabled = false;
-        _animator.SetTrigger("StopSliding");
+
+        _animator.SetBool("IsPlayerSliding", false);
+    }
+
+    void ResetJump(bool isOnTheGround)
+    {
+        Debug.Log(isOnTheGround);
+        if(isOnTheGround && _isJumping)
+        {
+            //StopCoroutine(StopJumpingRoutine());
+            _isJumping = false;
+            _animator.SetBool("IsPlayerJumping", false);
+        }
     }
 
     void Slide()
     {
         _isSliding = true;
-        _animator.ResetTrigger("StopSliding");
         _fullColider.enabled = false;
         _lowColider.enabled = true;
 
@@ -127,13 +143,13 @@ public class PlayerMovementController : MonoBehaviour
 
     IEnumerator SlidingRoutine()
     {
-        _animator.SetTrigger("StartSliding");
+        _animator.SetBool("IsPlayerSliding", true);
 
         yield return new WaitForSeconds(_slidingTime);
 
         _isSliding = false;
 
-        _animator.SetTrigger("StopSliding");
+        _animator.SetBool("IsPlayerSliding", false);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -150,9 +166,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         _isJumping = true;
         _rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-        _animator.ResetTrigger("StopJumping");
-        _animator.SetTrigger("StartJumping");
-        StartCoroutine(StopJumpingRoutine());
+
+        _animator.SetBool("IsPlayerJumping", true);
+
+        //StartCoroutine(StopJumpingRoutine());
         _audioSource.PlayOneShot(_jumpSound);
     }
 
@@ -164,7 +181,8 @@ public class PlayerMovementController : MonoBehaviour
         } while (_rb.velocity.y != 0);
 
         _isJumping = false;
-        _animator.SetTrigger("StopJumping");
+        
+        _animator.SetBool("IsPlayerJumping", false);
     }
 
     void MoveHorizontal(float speed)

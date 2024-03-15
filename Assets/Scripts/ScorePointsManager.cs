@@ -40,6 +40,7 @@ public class ScorePointsManager : MonoBehaviour
 
     void ResetScorePointsManager()
     {
+        StopScorePointsManager();
         _currentScore = 0;
         _scoreTextField.text = _currentScore.ToString();
     }
