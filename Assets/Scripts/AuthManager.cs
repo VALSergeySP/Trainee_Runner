@@ -11,7 +11,7 @@ public class AuthManager : MonoBehaviour
 {
     //Firebase variables
     [Header("Firebase")]
-    public DependencyStatus dependencyStatus;
+    public DependencyStatus dependencyStatus; // Публичные поля убрать
     public FirebaseAuth auth;
     public FirebaseUser user;
 
@@ -56,7 +56,7 @@ public class AuthManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
 
-            StartCoroutine(CheckForAutoLogin());
+            StartCoroutine(CheckForAutoLogin()); // Так не делать
         }
         else
         {

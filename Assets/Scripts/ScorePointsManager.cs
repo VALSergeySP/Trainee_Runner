@@ -57,7 +57,7 @@ public class ScorePointsManager : MonoBehaviour
         StartCoroutine(ScorePointsRoutine(_scorePointsPerSecond));
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent -= StartScorePointsManager;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevelEvent -= ResetScorePointsManager;

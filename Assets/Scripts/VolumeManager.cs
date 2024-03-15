@@ -7,7 +7,7 @@ public class VolumeManager : MonoBehaviour
 {
     [SerializeField] AudioMixer _audioMixer;
 
-
+    private static bool _wasCreated = false;
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -15,15 +15,22 @@ public class VolumeManager : MonoBehaviour
 
     void Start()
     {
-        //Get the saved music volume, standard = 10f
-        float master = PlayerPrefs.GetFloat("masterVolume", 0f);
-        float music = PlayerPrefs.GetFloat("musicVolume", 0f);
-        float effects = PlayerPrefs.GetFloat("soundEffectsVolume", 0f);
+        if (_wasCreated == false)
+        {
+            _wasCreated = true;
+            //Get the saved music volume, standard = 10f
+            float master = PlayerPrefs.GetFloat("masterVolume", 0f);
+            float music = PlayerPrefs.GetFloat("musicVolume", 0f);
+            float effects = PlayerPrefs.GetFloat("soundEffectsVolume", 0f);
 
-        //Set the music volume to the saved volume
-        AdjustMasterVolume(master);
-        AdjustMusicVolume(music);
-        AdjustEffectsVolume(effects);
+            //Set the music volume to the saved volume
+            AdjustMasterVolume(master);
+            AdjustMusicVolume(music);
+            AdjustEffectsVolume(effects);
+        } else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void AdjustMasterVolume(float volume)

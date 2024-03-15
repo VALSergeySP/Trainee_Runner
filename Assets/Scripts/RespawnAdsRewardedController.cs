@@ -24,7 +24,7 @@ public class RespawnAdsRewardedController : MonoBehaviour, IUnityAdsLoadListener
 
     void Start()
     {
-        Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += LoadAd;
+        Singleton.Instance.LevelGenerationManagerInstance.StartLevelEvent += LoadAd; // Отписать события
     }
 
     public void LoadAd()

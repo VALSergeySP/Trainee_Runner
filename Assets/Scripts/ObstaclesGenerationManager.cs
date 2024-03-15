@@ -81,7 +81,7 @@ public class ObstaclesGenerationManager : MonoBehaviour
             RemoveFirstActiveMap();
         }
 
-        AddNewMap();
+        AddNewMap(); // Цикл
         AddNewMap();
         AddNewMap();
     }
@@ -110,6 +110,7 @@ public class ObstaclesGenerationManager : MonoBehaviour
         activeMaps.Add(newMap);
     }
 
+    // Методы сделать поменьше (следующие два)
     GameObject GenerateNewMap()
     {
         GameObject map = new GameObject("Map");
