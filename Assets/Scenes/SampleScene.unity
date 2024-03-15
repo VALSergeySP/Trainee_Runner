@@ -3613,7 +3613,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5243,6 +5243,7 @@ MonoBehaviour:
   _mapStartOffset: 40
   _obstaclesTopPrefabs:
   - {fileID: 8413285050755335161, guid: ec3edbbb65db06649ae6019f61adcd5d, type: 3}
+  - {fileID: 6278270395274958769, guid: 8f6dfc410abcb6642a4c7bf299f939fa, type: 3}
   _obstaclesLowPrefabs:
   - {fileID: 3417596434977357038, guid: 9bc66409ba414d64d8ab34c37ea7f74a, type: 3}
   - {fileID: 3417596434977357038, guid: f6687d5e2c4fe934ba058b86a4b53d22, type: 3}
