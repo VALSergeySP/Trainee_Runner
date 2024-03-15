@@ -37,12 +37,12 @@ public class UIDeathMenuController : MonoBehaviour
     }
 
 
-    public void OnMainMenuButton() // Test button
+    public void OnMainMenuButton() // Переход в главное меню
     {
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevel();
     }
 
-    public void OnRespawnButton() // Test button
+    public void OnRespawnButton() // Респавн игрока
     {
         Singleton.Instance.RespawnAdsRewardedControllerInstance.ShowAd();
     }

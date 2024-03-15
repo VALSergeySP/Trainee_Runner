@@ -45,58 +45,58 @@ public class UIManager : MonoBehaviour
         _audioSource.PlayOneShot(_buttonClickSound);
     }
 
-    public void OnOptionsButton()
+    public void OnOptionsButton() // Переход в меню настроек
     {
         _mainMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
         _optionsMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
-    public void OnReturnFromOptionsButton()
+    public void OnReturnFromOptionsButton() // Переход из меню опций в главное меню
     {
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);
         _optionsMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
     }
 
-    void OnGameContinue()
+    void OnGameContinue() // Переход обратно к игре после просмотра рекламы
     {
         _deathMenu.DOAnchorPos(new Vector2(0, _movementOffset.y), _movementTime);
     }
 
-    void OnGameStart()
+    void OnGameStart() // При начале игры
     {
         _mainMenu.DOAnchorPos(new Vector2(0, -_movementOffset.y), _movementTime);
         _gameMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
-    void OnPlayerDeath()
+    void OnPlayerDeath() // При смерти игрока
     {
         _deathMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
-    public void OnLeadearboardButton()
+    public void OnLeadearboardButton() // Откырть таблицу лидеров с главного меню
     {
         _leaderboardMenu.DOAnchorPos(Vector2.zero, _movementTime);
         _mainMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
     }
-    public void OnBackToMainMenuPauseButton()
+    public void OnBackToMainMenuPauseButton() // Возврат в главное меню из меню паузы
     {
         Time.timeScale = 1f;
         Singleton.Instance.LevelGenerationManagerInstance.ResetLevel();
     }
-    public void OnPauseButton()
+    public void OnPauseButton() // При нажатии паузы
     {
         _pauseMenu.DOAnchorPos(Vector2.zero, 0);
         Time.timeScale = 0f;
         _gameMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), 0);
     }
-    public void OnResumeButton()
+    public void OnResumeButton() // При нажатии продолжить из меню паузы
     {
         Time.timeScale = 1f;
         _pauseMenu.DOAnchorPos(new Vector2(_movementOffset.x, 0), _movementTime);
         _gameMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
-    public void OnBackToMainMenuButton()
+    public void OnBackToMainMenuButton() // Возврат в главное меню из таблицы лидеров
     {
         _leaderboardMenu.DOAnchorPos(new Vector2(-_movementOffset.x, 0), _movementTime);
         _mainMenu.DOAnchorPos(Vector2.zero, _movementTime);

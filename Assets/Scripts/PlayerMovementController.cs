@@ -111,7 +111,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    void StopSlide()
+    void StopSlide() // Прерывание подката
     {
         StopCoroutine(SlidingRoutine());
         _isSliding = false;
@@ -121,7 +121,7 @@ public class PlayerMovementController : MonoBehaviour
         _animator.SetBool("IsPlayerSliding", false);
     }
 
-    void ResetJump(bool isOnTheGround)
+    void ResetJump(bool isOnTheGround) // Сброс прыжка при касании к земле
     {
         Debug.Log(isOnTheGround);
         if(isOnTheGround && _isJumping)
@@ -132,7 +132,7 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
-    void Slide()
+    void Slide() // Подкат
     {
         _isSliding = true;
         _fullColider.enabled = false;
@@ -158,7 +158,7 @@ public class PlayerMovementController : MonoBehaviour
         _lowColider.enabled = false;
     }
 
-    void StopJump()
+    void StopJump() // Остановка прыжка
     {
         _rb.AddForce(_jumpForce * _jumpStopCoef * Vector3.down, ForceMode.Impulse);
     }

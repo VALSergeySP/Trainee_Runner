@@ -35,13 +35,13 @@ public class UIAuthManager : MonoBehaviour
         _audioSource.PlayOneShot(_buttonClickSound);
     }
 
-    public void OnAuthorization()
+    public void OnAuthorization() // Переход к меню авторизации
     {
         _registrationMenu.DOAnchorPos(_transformOffset, _movementTime);
         _authMenu.DOAnchorPos(Vector2.zero, _movementTime);
     }
 
-    public void OnRegistration()
+    public void OnRegistration() // Переход к меню регистрации
     {
         _authMenu.DOAnchorPos(new Vector2(-_transformOffset.x, _transformOffset.y), _movementTime);
         _registrationMenu.DOAnchorPos(Vector2.zero, _movementTime);

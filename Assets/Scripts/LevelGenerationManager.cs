@@ -10,18 +10,18 @@ public class LevelGenerationManager : MonoBehaviour
     public event LevelDelegate ContinueLevelEvent;
     public event LevelDelegate PauseLevelEvent;
 
-    [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10);
-    [SerializeField] GameObject[] _levelPartPrefabs;
+    [SerializeField] Vector3 PART_OFFSET = new(0, 0, 10); // Офсет части уровня (длина одной части)
+    [SerializeField] GameObject[] _levelPartPrefabs; // Части для генерации окружения
     List<Transform> _levelParts = new();
 
     [SerializeField] float _maxMovementSpeed = 10f;
     [SerializeField] float _startSpeed = 3f;
-    [SerializeField] float _timeToMaxSpeedInSec = 120f;
+    [SerializeField] float _timeToMaxSpeedInSec = 120f; // Время, через которое скорость будет максимальной
     float _currentSpeed = 0f;
     float _stopSpeed;
     public float CurrentSpeed=> _currentSpeed;
     float _speedChangeStep;
-    [SerializeField] int _maxLevelParts = 5;
+    [SerializeField] int _maxLevelParts = 5; // Максимальное число видимых частей уровня
 
     AudioSource _audioSource;
 
@@ -58,7 +58,7 @@ public class LevelGenerationManager : MonoBehaviour
         }
     }
 
-    public void StopLevel()
+    public void StopLevel() // Пауза уровня
     {
         _stopSpeed = _currentSpeed;
         _currentSpeed = 0f;
@@ -68,7 +68,7 @@ public class LevelGenerationManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-    public void ContinueLevel()
+    public void ContinueLevel() // Продолжить после паузы
     {
         _currentSpeed = _stopSpeed;
         StartCoroutine(SpeedChangeRoutine());
@@ -76,7 +76,7 @@ public class LevelGenerationManager : MonoBehaviour
         ContinueLevelEvent?.Invoke();
     }
 
-    public void ResetLevel()
+    public void ResetLevel() // Сброс уровня к начальному состоянию
     {
         _speedChangeStep = (_maxMovementSpeed - _startSpeed) / _timeToMaxSpeedInSec;
         _currentSpeed = 0f;
@@ -103,7 +103,7 @@ public class LevelGenerationManager : MonoBehaviour
         _isFirstStart = false;
     }
 
-    public void StartLevel()
+    public void StartLevel() // Начало забега
     {
         _currentSpeed = _startSpeed;
         StartLevelEvent?.Invoke();

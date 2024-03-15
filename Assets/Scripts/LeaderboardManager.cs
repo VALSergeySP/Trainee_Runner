@@ -33,7 +33,7 @@ public class LeaderboardManager : MonoBehaviour
         StartCoroutine(UpdateUsernameDatabase(user.DisplayName));
     }
 
-    private void InitializeFirebase()
+    private void InitializeFirebase() 
     {
         user = FirebaseAuth.DefaultInstance.CurrentUser;
 
@@ -48,7 +48,7 @@ public class LeaderboardManager : MonoBehaviour
     }
 
 
-    void SendScoreData()
+    void SendScoreData() // Для сохранения текущего счёта в БД
     {
         int score = Singleton.Instance.ScorePointsManagerInstance.CurrentScore;
 
@@ -60,7 +60,8 @@ public class LeaderboardManager : MonoBehaviour
         StartCoroutine(DataUpdateRoutine());
     }
 
-    IEnumerator DataUpdateRoutine()
+    // Метод для обновления данных в таблице лидеров. Сначала обноляет данные в БД, затем загружает данные оттуда
+    IEnumerator DataUpdateRoutine() 
     {
         int score = Singleton.Instance.ScorePointsManagerInstance.CurrentScore;
 
@@ -70,7 +71,7 @@ public class LeaderboardManager : MonoBehaviour
     }
 
 
-    IEnumerator UpdateUsernameDatabase(string username)
+    IEnumerator UpdateUsernameDatabase(string username) // Для сохранения имени игрока, если он зашёл впервые
     {
         var DBTask = DBreference.Child("users").Child(user.UserId).Child("username").SetValueAsync(username);
 
@@ -85,7 +86,7 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
-    IEnumerator UpdateScoreDatabase(int score)
+    IEnumerator UpdateScoreDatabase(int score) // Проверка и сохранение счёта, если он больше записи в БД
     {
         var DBGetTask = DBreference.Child("users").Child(user.UserId).Child("maxscore").GetValueAsync();
 
@@ -121,7 +122,8 @@ public class LeaderboardManager : MonoBehaviour
         }
     }
 
-    IEnumerator LoadCurrentUserData()
+    // Загрузка имени и максимального счёта текущего игрока
+    IEnumerator LoadCurrentUserData() 
     {
         var DBTask = DBreference.Child("users").Child(user.UserId).GetValueAsync();
 
@@ -147,6 +149,7 @@ public class LeaderboardManager : MonoBehaviour
         _currentUserNamePause.text = user.DisplayName;
     }
 
+    // Для загрузки <= 20 записей из топа БД
     IEnumerator LoadLeaderboardData()
     {
         var DBTask = DBreference.Child("users").OrderByChild("maxscore").GetValueAsync();

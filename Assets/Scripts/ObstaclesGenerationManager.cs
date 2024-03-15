@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class ObstaclesGenerationManager : MonoBehaviour
 {
-    [SerializeField] int _itemSpacingDistance = 10;
+    [SerializeField] int _itemSpacingDistance = 10; // Расстояние между двумя препятствиями на одной линии
     [SerializeField] int _linesOnMap = 5; // Колл-во линий с препятствиями на одной карте
-    [SerializeField] int _mapsToGenerateOnStart = 10;
+    [SerializeField] int _mapsToGenerateOnStart = 10; // Колл-во карт с препятствиями на уровне
 
-    [SerializeField] float _mapStartOffset = 10f;
-    float _laneOffset = 2.5f;
+    [SerializeField] float _mapStartOffset = 10f; // Расстояние до первого препятствия на карте при ресете игры
+    float _laneOffset = 2.5f; // Ширина одной полосы
     float _mapSize;
     public float LaneOffset => _laneOffset;
 
-    [SerializeField] GameObject[] _obstaclesTopPrefabs;
-    [SerializeField] GameObject[] _obstaclesLowPrefabs;
-    [SerializeField] GameObject[] _obstaclesFullPrefabs;
+    [SerializeField] GameObject[] _obstaclesTopPrefabs; // Препятствия сверху
+    [SerializeField] GameObject[] _obstaclesLowPrefabs; // Препятствия снизу
+    [SerializeField] GameObject[] _obstaclesFullPrefabs; // Полные препятствия
 
     List<GameObject> generatedMaps = new();
     List<GameObject> activeMaps = new();
 
     enum ObjectsStyle { Line, Jump, Empty };
 
-    [SerializeField] GameObject[] _objectPrefabs;
-    [SerializeField] int _objectsSpawnProbability;
-    [SerializeField] int _objectsInItem;
-    [SerializeField] float _objectsSpawnHeight;
+    [SerializeField] GameObject[] _objectPrefabs; // Объекты для спавна (монеты)
+    [SerializeField] int _objectsSpawnProbability; // Вероятность появления монет вокруг препятствия (в процентах 0-100)
+    [SerializeField] int _objectsInItem; // Колл-во объектов вокруг одного препятствия 
+    [SerializeField] float _objectsSpawnHeight; // Высота появления объектов от земли
 
     struct MapObstacle
     {
@@ -187,7 +187,7 @@ public class ObstaclesGenerationManager : MonoBehaviour
         if (style == ObjectsStyle.Empty)
         {
             return;
-        } else if(style == ObjectsStyle.Line)
+        } else if(style == ObjectsStyle.Line) // Спавн по прямой
         {
             if (_objectsSpawnProbability > Random.Range(0, 100))
             {
@@ -208,7 +208,7 @@ public class ObstaclesGenerationManager : MonoBehaviour
                 }
             }
         }
-        else if (style == ObjectsStyle.Jump)
+        else if (style == ObjectsStyle.Jump) // Спавн по параболе
         {
             if (_objectsSpawnProbability > Random.Range(0, 100))
             {

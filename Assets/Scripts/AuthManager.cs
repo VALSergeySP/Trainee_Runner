@@ -42,7 +42,7 @@ public class AuthManager : MonoBehaviour
     }
 
 
-    IEnumerator CheckAndFixDependenciesAsync()
+    IEnumerator CheckAndFixDependenciesAsync() // Проверка для инициализации систем Firebase
     {
         var dependencyTask = FirebaseApp.CheckAndFixDependenciesAsync();
 

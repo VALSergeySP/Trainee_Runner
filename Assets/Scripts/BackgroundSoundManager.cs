@@ -8,14 +8,14 @@ public class BackgroundSoundManager : MonoBehaviour
     [SerializeField] AudioClip _slowMusic;
     [SerializeField] AudioClip _fastMusic;
 
-    public void StartGameBackgroundMusic()
+    public void StartGameBackgroundMusic() // Музыка для меню
     {
         _auidoSource.Stop();
         _auidoSource.clip = _fastMusic;
         _auidoSource.Play();
     }
 
-    public void StopGameBackgroundMusic()
+    public void StopGameBackgroundMusic() // Музыка для игры (во время бега)
     {
         _auidoSource.Stop();
         _auidoSource.clip = _slowMusic;
